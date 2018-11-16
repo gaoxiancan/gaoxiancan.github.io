@@ -62,42 +62,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world-1" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/15/hello-world-1/" class="article-date">
-  <time datetime="2018-11-15T10:53:27.000Z" itemprop="datePublished">2018-11-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/15/hello-world-1/">hello world</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/15/hello-world-1/" data-id="cjoihnl3o00004gub23ztba1z" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/15/hello-world/" class="article-date">
@@ -112,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/15/hello-world/">Hello World</a>
+      <a class="article-title" href="/2018/11/15/hello-world/">canal-kafka</a>
     </h1>
   
 
@@ -120,15 +84,111 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>Canal版本:1.1.1</p>
+<p><a href="https://github.com/alibaba/canal/wiki/Canal-Kafka-RocketMQ-QuickStart" target="_blank" rel="noopener">https://github.com/alibaba/canal/wiki/Canal-Kafka-RocketMQ-QuickStart</a></p>
+<h1 id="1-直接输出到kafka配置"><a href="#1-直接输出到kafka配置" class="headerlink" title="1 直接输出到kafka配置"></a>1 直接输出到kafka配置</h1><h2 id="1-1-修改canal-配置文件"><a href="#1-1-修改canal-配置文件" class="headerlink" title="1.1 修改canal 配置文件"></a>1.1 修改canal 配置文件</h2><p>和原来唯一不同的是<code>canal.serverMode`</code>多出了两种选项<code></code>kafka, RocketMQ`</p>
+<p>vi /usr/local/canal/conf/canal.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">canal.serverMode = kafka# ...</span><br><span class="line"># 可选项: tcp(默认), kafka, RocketMQ</span><br><span class="line">canal.serverMode = kafka</span><br><span class="line"># ...</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-修改instance-配置文件"><a href="#1-2-修改instance-配置文件" class="headerlink" title="1.2 修改instance 配置文件"></a>1.2 修改instance 配置文件</h2><p>这个和原来的配置没有发生变化</p>
+<p>vi conf/ example /instance.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> #  按需修改成自己的数据库信息</span><br><span class="line"></span><br><span class="line">#################################################</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">canal.instance.master.address=192.168.1.20:3306</span><br><span class="line"></span><br><span class="line"># username/password,数据库的用户名和密码</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">canal.instance.dbUsername = canal</span><br><span class="line"></span><br><span class="line">canal.instance.dbPassword = canal</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">#################################################</span><br></pre></td></tr></table></figure>
+<h2 id="1-3-修改mq配置文件"><a href="#1-3-修改mq配置文件" class="headerlink" title="1.3 修改mq配置文件"></a>1.3 修改mq配置文件</h2><p>canal1.1.1添加了mq配置文件,这里配置kafka相关的信息</p>
+<p>vi /usr/local/canal/conf/mq.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># kafka/rocketmq 集群配置: 192.168.1.117:9092,192.168.1.118:9092,192.168.1.119:9092 </span><br><span class="line"></span><br><span class="line">servers: 192.168.1.117:9092</span><br><span class="line">retries: 0</span><br><span class="line">batchSize: 16384</span><br><span class="line">lingerMs: 1</span><br><span class="line">bufferMemory: 33554432</span><br><span class="line"># Canal的batch size, 默认50K, 由于kafka最大消息体限制请勿超过1M(900K以下)</span><br><span class="line">canalBatchSize: 50</span><br><span class="line"># Canal get数据的超时时间, 单位: 毫秒, 空为不限超时</span><br><span class="line">canalGetTimeout: 100</span><br><span class="line">flatMessage: true</span><br><span class="line">canalDestinations:</span><br><span class="line">  - canalDestination: example</span><br><span class="line">    topic: example</span><br><span class="line">    partition: 1</span><br><span class="line">#  #对应topic分区数量</span><br><span class="line">#  partitionsNum: 3</span><br><span class="line">#  partitionHash:</span><br><span class="line">#    #库名.表名: 唯一主键</span><br><span class="line">#    mytest.person: id</span><br></pre></td></tr></table></figure>
+<p>mq.yml参数说明:</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>参数说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>servers</td>
+<td>kafka为bootstrap.servers     rocketMQ中为nameserver列表</td>
+<td>127.0.0.1:6667</td>
+</tr>
+<tr>
+<td>retries</td>
+<td>发送失败重试次数</td>
+<td>0</td>
+</tr>
+<tr>
+<td>batchSize</td>
+<td>kafka为ProducerConfig.BATCH_SIZE_CONFIG     rocketMQ无意义</td>
+<td>16384</td>
+</tr>
+<tr>
+<td>lingerMs</td>
+<td>kafka为ProducerConfig.LINGER_MS_CONFIG     rocketMQ无意义</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bufferMemory</td>
+<td>kafka为ProducerConfig.BUFFER_MEMORY_CONFIG     rocketMQ无意义</td>
+<td>33554432</td>
+</tr>
+<tr>
+<td>producerGroup</td>
+<td>kafa无意义     rocketMQ为ProducerGroup名</td>
+<td>Canal-Producer</td>
+</tr>
+<tr>
+<td>canalBatchSize</td>
+<td>获取canal数据的批次大小</td>
+<td>50</td>
+</tr>
+<tr>
+<td>canalGetTimeout</td>
+<td>获取canal数据的超时时间</td>
+<td>100</td>
+</tr>
+<tr>
+<td>flatMessage</td>
+<td>是否为json格式     如果设置为false,对应MQ收到的消息为protobuf格式    需要通过CanalMessageDeserializer进行解码</td>
+<td>true</td>
+</tr>
+<tr>
+<td>CanalDestinations</td>
+<td>通道定义，父级目录</td>
+<td>–</td>
+</tr>
+<tr>
+<td>CanalDestination</td>
+<td>通道名称</td>
+<td>无</td>
+</tr>
+<tr>
+<td>topic</td>
+<td>mq里的topic名</td>
+<td>无</td>
+</tr>
+<tr>
+<td>partition</td>
+<td>单队列模式的分区下标，</td>
+<td>1</td>
+</tr>
+<tr>
+<td>partitionsNum</td>
+<td>散列模式的分区数</td>
+<td>无</td>
+</tr>
+<tr>
+<td>partitionHash</td>
+<td>散列规则定义     库名.表名 : 唯一主键，比如mytest.person: id</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h1 id="2-直接输出到kafka输出数据"><a href="#2-直接输出到kafka输出数据" class="headerlink" title="2 直接输出到kafka输出数据"></a>2 直接输出到kafka输出数据</h1><h2 id="2-1-插入数据"><a href="#2-1-插入数据" class="headerlink" title="2.1 插入数据"></a>2.1 插入数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;data&quot;: [&#123;</span><br><span class="line">		&quot;ID&quot;: &quot;896954&quot;,</span><br><span class="line">		&quot;DS_NAME&quot;: &quot;v10&quot;,</span><br><span class="line">		&quot;SCHEMA_NAME&quot;: &quot;test&quot;,</span><br><span class="line">		&quot;TABLE_NAME&quot;: &quot;t_avro_schema&quot;,</span><br><span class="line">		&quot;PACKET&quot;: &quot;&#123;\&quot;node\&quot;:\&quot;/DBus/HeartBeat/Monitor/v10/test/t_avro_schema/0\&quot;,\&quot;time\&quot;:1541732265311,\&quot;type\&quot;:\&quot;checkpoint\&quot;,\&quot;txTime\&quot;:1541732265200&#125;&quot;,</span><br><span class="line">		&quot;CREATE_TIME&quot;: &quot;2018-11-09 10:57:45&quot;,</span><br><span class="line">		&quot;UPDATE_TIME&quot;: &quot;2018-11-09 10:57:45&quot;</span><br><span class="line">	&#125;],</span><br><span class="line">	&quot;database&quot;: &quot;dbus&quot;,</span><br><span class="line">	&quot;es&quot;: 1541732265000,</span><br><span class="line">	&quot;id&quot;: 11,</span><br><span class="line">	&quot;isDdl&quot;: false,</span><br><span class="line">	&quot;mysqlType&quot;: &#123;</span><br><span class="line">		&quot;ID&quot;: &quot;bigint(19)&quot;,</span><br><span class="line">		&quot;DS_NAME&quot;: &quot;varchar(64)&quot;,</span><br><span class="line">		&quot;SCHEMA_NAME&quot;: &quot;varchar(64)&quot;,</span><br><span class="line">		&quot;TABLE_NAME&quot;: &quot;varchar(64)&quot;,</span><br><span class="line">		&quot;PACKET&quot;: &quot;varchar(256)&quot;,</span><br><span class="line">		&quot;CREATE_TIME&quot;: &quot;datetime&quot;,</span><br><span class="line">		&quot;UPDATE_TIME&quot;: &quot;datetime&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;old&quot;: null,</span><br><span class="line">	&quot;sql&quot;: &quot;&quot;,</span><br><span class="line">	&quot;sqlType&quot;: &#123;</span><br><span class="line">		&quot;ID&quot;: -5,</span><br><span class="line">		&quot;DS_NAME&quot;: 12,</span><br><span class="line">		&quot;SCHEMA_NAME&quot;: 12,</span><br><span class="line">		&quot;TABLE_NAME&quot;: 12,</span><br><span class="line">		&quot;PACKET&quot;: 12,</span><br><span class="line">		&quot;CREATE_TIME&quot;: 93,</span><br><span class="line">		&quot;UPDATE_TIME&quot;: 93</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;table&quot;: &quot;db_heartbeat_monitor&quot;,</span><br><span class="line">	&quot;ts&quot;: 1541732265395,</span><br><span class="line">	&quot;type&quot;: &quot;INSERT&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-更新数据"><a href="#2-2-更新数据" class="headerlink" title="2.2 更新数据"></a>2.2 更新数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;data&quot;: [&#123;</span><br><span class="line">		&quot;actor_id&quot;: &quot;1&quot;,</span><br><span class="line">		&quot;first_name&quot;: &quot;aaaaaa&quot;,</span><br><span class="line">		&quot;last_name&quot;: &quot;bbbbbbb&quot;,</span><br><span class="line">		&quot;last_update&quot;: &quot;2018-11-09 11:15:04&quot;,</span><br><span class="line">		&quot;col_2&quot;: &quot;0&quot;,</span><br><span class="line">		&quot;col_1&quot;: &quot;0&quot;</span><br><span class="line">	&#125;],</span><br><span class="line">	&quot;database&quot;: &quot;test&quot;,</span><br><span class="line">	&quot;es&quot;: 1541733304000,</span><br><span class="line">	&quot;id&quot;: 51,</span><br><span class="line">	&quot;isDdl&quot;: false,</span><br><span class="line">	&quot;mysqlType&quot;: &#123;</span><br><span class="line">		&quot;actor_id&quot;: &quot;smallint(5) unsigned&quot;,</span><br><span class="line">		&quot;first_name&quot;: &quot;varchar(45)&quot;,</span><br><span class="line">		&quot;last_name&quot;: &quot;varchar(45)&quot;,</span><br><span class="line">		&quot;last_update&quot;: &quot;timestamp&quot;,</span><br><span class="line">		&quot;col_2&quot;: &quot;varchar(16)&quot;,</span><br><span class="line">		&quot;col_1&quot;: &quot;int(16)&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;old&quot;: [&#123;</span><br><span class="line">		&quot;first_name&quot;: &quot;test_first_name_0&quot;,</span><br><span class="line">		&quot;last_name&quot;: &quot;test_last_name_0&quot;,</span><br><span class="line">		&quot;last_update&quot;: &quot;2018-07-27 17:22:28&quot;</span><br><span class="line">	&#125;],</span><br><span class="line">	&quot;sql&quot;: &quot;&quot;,</span><br><span class="line">	&quot;sqlType&quot;: &#123;</span><br><span class="line">		&quot;actor_id&quot;: 5,</span><br><span class="line">		&quot;first_name&quot;: 12,</span><br><span class="line">		&quot;last_name&quot;: 12,</span><br><span class="line">		&quot;last_update&quot;: 93,</span><br><span class="line">		&quot;col_2&quot;: 12,</span><br><span class="line">		&quot;col_1&quot;: 4</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;table&quot;: &quot;actor&quot;,</span><br><span class="line">	&quot;ts&quot;: 1541733304928,</span><br><span class="line">	&quot;type&quot;: &quot;UPDATE&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-删除数据"><a href="#2-3-删除数据" class="headerlink" title="2.3 删除数据"></a>2.3 删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;data&quot;: [&#123;</span><br><span class="line">		&quot;actor_id&quot;: &quot;10951&quot;,</span><br><span class="line">		&quot;first_name&quot;: &quot;test_first_name_9&quot;,</span><br><span class="line">		&quot;last_name&quot;: &quot;test_last_name_9&quot;,</span><br><span class="line">		&quot;last_update&quot;: &quot;2018-07-27 17:33:20&quot;,</span><br><span class="line">		&quot;col_2&quot;: &quot;9&quot;,</span><br><span class="line">		&quot;col_1&quot;: &quot;9&quot;</span><br><span class="line">	&#125;],</span><br><span class="line">	&quot;database&quot;: &quot;test&quot;,</span><br><span class="line">	&quot;es&quot;: 1541732168000,</span><br><span class="line">	&quot;id&quot;: 7,</span><br><span class="line">	&quot;isDdl&quot;: false,</span><br><span class="line">	&quot;mysqlType&quot;: &#123;</span><br><span class="line">		&quot;actor_id&quot;: &quot;smallint(5) unsigned&quot;,</span><br><span class="line">		&quot;first_name&quot;: &quot;varchar(45)&quot;,</span><br><span class="line">		&quot;last_name&quot;: &quot;varchar(45)&quot;,</span><br><span class="line">		&quot;last_update&quot;: &quot;timestamp&quot;,</span><br><span class="line">		&quot;col_2&quot;: &quot;varchar(16)&quot;,</span><br><span class="line">		&quot;col_1&quot;: &quot;int(16)&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;old&quot;: null,</span><br><span class="line">	&quot;sql&quot;: &quot;&quot;,</span><br><span class="line">	&quot;sqlType&quot;: &#123;</span><br><span class="line">		&quot;actor_id&quot;: 5,</span><br><span class="line">		&quot;first_name&quot;: 12,</span><br><span class="line">		&quot;last_name&quot;: 12,</span><br><span class="line">		&quot;last_update&quot;: 93,</span><br><span class="line">		&quot;col_2&quot;: 12,</span><br><span class="line">		&quot;col_1&quot;: 4</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;table&quot;: &quot;actor&quot;,</span><br><span class="line">	&quot;ts&quot;: 1541732168975,</span><br><span class="line">	&quot;type&quot;: &quot;DELETE&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-4-新增列"><a href="#2-4-新增列" class="headerlink" title="2.4 新增列"></a>2.4 新增列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;data&quot;: null,</span><br><span class="line">	&quot;database&quot;: &quot;test&quot;,</span><br><span class="line">	&quot;es&quot;: 1541733366000,</span><br><span class="line">	&quot;id&quot;: 53,</span><br><span class="line">	&quot;isDdl&quot;: true,</span><br><span class="line">	&quot;mysqlType&quot;: null,</span><br><span class="line">	&quot;old&quot;: null,</span><br><span class="line">	&quot;sql&quot;: &quot;ALTER TABLE `actor`\r\nADD COLUMN `mark` varchar(20) NULL AFTER `col_1`&quot;,</span><br><span class="line">	&quot;sqlType&quot;: null,</span><br><span class="line">	&quot;table&quot;: &quot;actor&quot;,</span><br><span class="line">	&quot;ts&quot;: 1541733367452,</span><br><span class="line">	&quot;type&quot;: &quot;ALTER&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-数据格式变化分析"><a href="#3-数据格式变化分析" class="headerlink" title="3 数据格式变化分析"></a>3 数据格式变化分析</h1><h2 id="3-1-二进制数据结构：EntryProtocol-proto"><a href="#3-1-二进制数据结构：EntryProtocol-proto" class="headerlink" title="3.1 二进制数据结构：EntryProtocol.proto"></a>3.1 二进制数据结构：<a href="https://github.com/alibaba/canal/blob/master/protocol/src/main/java/com/alibaba/otter/canal/protocol/EntryProtocol.proto" target="_blank" rel="noopener">EntryProtocol.proto</a></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Entry  </span><br><span class="line">    Header  </span><br><span class="line">        logfileName [binlog文件名]  </span><br><span class="line">        logfileOffset [binlog position]  </span><br><span class="line">        executeTime [binlog里记录变更发生的时间戳,精确到秒]  </span><br><span class="line">        schemaName   </span><br><span class="line">        tableName  </span><br><span class="line">        eventType [insert/update/delete类型]  </span><br><span class="line">    entryType   [事务头BEGIN/事务尾END/数据ROWDATA]  </span><br><span class="line">    storeValue  [byte数据,可展开，对应的类型为RowChange]  </span><br><span class="line">RowChange</span><br><span class="line">isDdl       [是否是ddl变更操作，比如create table/drop table]</span><br><span class="line">sql         [具体的ddl sql]</span><br><span class="line">rowDatas    [具体insert/update/delete的变更数据，可为多条，1个binlog event事件可对应多条变更，比如批处理]</span><br><span class="line">beforeColumns [Column类型的数组，变更前的数据字段]</span><br><span class="line">afterColumns [Column类型的数组，变更后的数据字段]</span><br><span class="line">Column</span><br><span class="line">index</span><br><span class="line">sqlType     [jdbc type]</span><br><span class="line">name        [column name]</span><br><span class="line">isKey       [是否为主键]</span><br><span class="line">updated     [是否发生过变更]</span><br><span class="line">isNull      [值是否为null]</span><br><span class="line">value       [具体的内容，注意为string文本]</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-输出到kafka的数据结构"><a href="#3-2-输出到kafka的数据结构" class="headerlink" title="3.2 输出到kafka的数据结构"></a>3.2 输出到kafka的数据结构</h2><p>官网没找到相关说明,自己总结的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">data  更新,插入时的新数据;删除时被删除的数据</span><br><span class="line">database   数据库名称</span><br><span class="line">es   毫秒值</span><br><span class="line">id   ???</span><br><span class="line">isDdl  是否是ddl变更操作</span><br><span class="line">mysqlType  数据库表结构,mysql类型</span><br><span class="line">old  更新数据时旧的数据</span><br><span class="line">sql  具体的ddl sql</span><br><span class="line">sqlType  数据库表结构, java.sql.Type类型</span><br><span class="line">table  表明</span><br><span class="line">ts  毫秒值</span><br><span class="line">type  变更类型, ALTER,INSERT,DELETE,UPDATE</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -174,11 +234,7 @@
       <ul>
         
           <li>
-            <a href="/2018/11/15/hello-world-1/">hello world</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/15/hello-world/">Hello World</a>
+            <a href="/2018/11/15/hello-world/">canal-kafka</a>
           </li>
         
       </ul>
